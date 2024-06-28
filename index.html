@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorteio de EXP - NF Mind</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 400px;
+        margin: auto;
+      }
+      label,
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .results {
+        margin-top: 20px;
+      }
+      .result-item {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sorteio de EXP</h2>
+      <form id="sorteioForm">
+        <label for="expAtual">EXP Atual:</label>
+        <input type="number" id="expAtual" required />
+
+        <label for="quantidadeSorteios">Quantidade de Sorteios:</label>
+        <input type="number" id="quantidadeSorteios" required />
+
+        <button type="submit">Sortear</button>
+      </form>
+      <div class="results" id="results"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("sorteioForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const expAtual = parseInt(document.getElementById("expAtual").value);
+          const quantidadeSorteios = parseInt(
+            document.getElementById("quantidadeSorteios").value
+          );
+          const resultsContainer = document.getElementById("results");
+          resultsContainer.innerHTML = ""; // Limpa resultados anteriores
+
+          let exp = expAtual;
+          for (let i = 1; i <= quantidadeSorteios; i++) {
+            exp += 100;
+            const ganhou = Math.random() < 0.5;
+            const resultItem = document.createElement("div");
+            resultItem.classList.add("result-item");
+            resultItem.textContent = `Aos ${exp} de EXP - ${
+              ganhou ? "Ganhou" : "Perdeu"
+            }`;
+            resultsContainer.appendChild(resultItem);
+          }
+        });
+    </script>
+  </body>
+</html>
